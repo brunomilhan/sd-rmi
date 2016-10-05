@@ -19,8 +19,14 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="client-rmi_main" target="1.5" />
+      <module name="client-rmi_test" target="1.5" />
+      <module name="common-rmi_main" target="1.5" />
+      <module name="common-rmi_test" target="1.5" />
       <module name="sd-rmi_main" target="1.5" />
       <module name="sd-rmi_test" target="1.5" />
+      <module name="server-rmi_main" target="1.5" />
+      <module name="server-rmi_test" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

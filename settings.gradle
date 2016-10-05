@@ -1,2 +1,5 @@
 rootProject.name = 'sd-rmi'
+include 'client-rmi'
+include 'server-rmi'
+include 'common-rmi'
 

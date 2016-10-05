@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi.iml" filepath="$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi.iml" group="client-rmi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi_main.iml" group="client-rmi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi_test.iml" group="client-rmi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-rmi/common-rmi.iml" filepath="$PROJECT_DIR$/.idea/modules/common-rmi/common-rmi.iml" group="common-rmi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-rmi/common-rmi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/common-rmi/common-rmi_main.iml" group="common-rmi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-rmi/common-rmi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/common-rmi/common-rmi_test.iml" group="common-rmi" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sd-rmi.iml" filepath="$PROJECT_DIR$/.idea/modules/sd-rmi.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sd-rmi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/sd-rmi_main.iml" group="sd-rmi" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sd-rmi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/sd-rmi_test.iml" group="sd-rmi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-rmi/server-rmi.iml" filepath="$PROJECT_DIR$/.idea/modules/server-rmi/server-rmi.iml" group="server-rmi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-rmi/server-rmi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server-rmi/server-rmi_main.iml" group="server-rmi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server-rmi/server-rmi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server-rmi/server-rmi_test.iml" group="server-rmi" />
     </modules>
   </component>
 </project>
