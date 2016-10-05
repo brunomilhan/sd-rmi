@@ -5,3 +5,4 @@ build/
 
 # Sensitive or high-churn files:
 .idea/uiDesigner.xml
+/gradle/wrapper/gradle-wrapper.properties
