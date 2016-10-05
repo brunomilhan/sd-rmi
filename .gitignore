@@ -1,0 +1,13 @@
+.gradle/
+build.gradle
+build/
+gradle/
+# User-specific stuff:
+.idea/workspace.xml
+
+# Sensitive or high-churn files:
+.idea/uiDesigner.xml
+
+# Gradle:
+.idea/gradle.xml
+.idea/libraries
