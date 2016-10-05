@@ -1,7 +1,6 @@
 .gradle/
 build.gradle
 build/
-gradle/
 # User-specific stuff:
 .idea/workspace.xml
 
