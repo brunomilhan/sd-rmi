@@ -11,6 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class Servidor extends UnicastRemoteObject implements InterfaceServer {
     public Servidor() throws RemoteException {
+
     }
 
     public void chamar(String nomeCliente, InterfaceCliente cliente) {
