@@ -9,9 +9,9 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class Book implements Serializable {
     private String name;
+    private String status;
 
-    public Book(String name) throws RemoteException {
-        super();
+    public Book(String name) {
         this.name = name;
     }
 
@@ -21,6 +21,14 @@ public class Book implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
