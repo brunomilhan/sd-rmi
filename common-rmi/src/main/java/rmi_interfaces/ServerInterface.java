@@ -1,7 +1,6 @@
 package rmi_interfaces;
 
 import rmi_class.Book;
-import rmi_class.BookInterface;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -12,4 +11,5 @@ import java.util.List;
  */
 public interface ServerInterface extends Remote {
     List<Book> listBooks() throws RemoteException;
+    boolean lend(String clientName, Book book) throws RemoteException;
 }

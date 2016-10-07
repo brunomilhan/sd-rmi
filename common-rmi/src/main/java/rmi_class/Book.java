@@ -8,11 +8,14 @@ import java.rmi.server.UnicastRemoteObject;
  * Created by bruno on 05/10/16.
  */
 public class Book implements Serializable {
+    public static final String AVAILABLE = "AVAILABLE";
+    public static final String UNAVAILABLE = "UNAVAILABLE";
     private String name;
     private String status;
 
     public Book(String name) {
         this.name = name;
+        this.status = AVAILABLE;
     }
 
     public String getName() {
