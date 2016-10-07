@@ -102,6 +102,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
                 if (!book.isAvaiable()){
                     Reserve reserve = new Reserve(clientInterface, date2Expire);
                     book.addClientInReserveList(reserve);
+                    return true;
                 }
             }
         return false;
