@@ -81,6 +81,31 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         return false;
     }
 
+    public boolean returnBook(String clientName, String bookName) throws RemoteException {
+        Book book = findBook(bookName);
+        Client client = findClient(clientName);
+        if(book != null)
+            if (client != null) {
+                long time = book.getEndDate().getTime() - System.currentTimeMillis();
+                if (time < 0)
+                    applyFine(client);
+                registerBookReturn(client, book);
+                return true;
+            }
+        return false;
+    }
+
+    private void registerBookReturn(Client client, Book book) {
+        client.removeLoanBook(book);
+        client.setLoans(-1);
+        book.cleanLoan();
+        // checar lista de interesses de emprestimo
+    }
+
+    private void applyFine(Client client) {
+        client.setStatus(Client.UNAVAILABLE);
+    }
+
     private boolean checkClientOverdue(Client client){
         for (Book b : client.getLoansBooks())
             if (b.isOverdue())

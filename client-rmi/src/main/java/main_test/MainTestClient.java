@@ -26,6 +26,9 @@ public class MainTestClient {
             }
             boolean test2 = serverInterface.renew("bruno", "Teste1");
             System.out.println(test2);
+            boolean testReturn = serverInterface.returnBook("bruno", "Teste1");
+            System.out.println(testReturn);
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }

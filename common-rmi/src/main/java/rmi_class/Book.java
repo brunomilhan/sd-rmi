@@ -30,6 +30,14 @@ public class Book implements Serializable {
         this.status = AVAILABLE;
     }
 
+    public void cleanLoan(){
+        status = AVAILABLE;
+        client = null;
+        setInitDate(null);
+        setEndDate(null);
+        setRenew(false);
+    }
+
     public boolean isAvaiable() {
         return status.equals(AVAILABLE);
     }
