@@ -16,6 +16,7 @@ import java.util.List;
 public class Server extends UnicastRemoteObject implements ServerInterface {
     private List<Book> books = null;
     private List<Client> clients = new ArrayList<Client>();
+    private LibraryFines libraryFines = new LibraryFines();
 
     public Server() throws RemoteException {
         super();
@@ -104,6 +105,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 
     private void applyFine(Client client) {
         client.setStatus(Client.UNAVAILABLE);
+        libraryFines.applyFine(client);
     }
 
     private boolean checkClientOverdue(Client client){
