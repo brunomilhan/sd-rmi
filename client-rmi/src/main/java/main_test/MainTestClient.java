@@ -17,10 +17,13 @@ public class MainTestClient {
         try {
             boolean bol = serverInterface.lend("bruno", new Book("Teste1"));
             bol = serverInterface.lend("bruno", new Book("Teste1"));
-            for (Book b : serverInterface.listBooks()){
-                System.out.println( b);
+            for (String s : serverInterface.listBooks()){
+                System.out.println(s);
             }
             System.out.println(bol);
+            for (String s : serverInterface.listBooks()){
+                System.out.println(s);
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }

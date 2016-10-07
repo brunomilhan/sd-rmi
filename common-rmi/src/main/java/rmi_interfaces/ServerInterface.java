@@ -10,6 +10,6 @@ import java.util.List;
  * Created by bruno on 05/10/16.
  */
 public interface ServerInterface extends Remote {
-    List<Book> listBooks() throws RemoteException;
+    List<String> listBooks() throws RemoteException;
     boolean lend(String clientName, Book book) throws RemoteException;
 }

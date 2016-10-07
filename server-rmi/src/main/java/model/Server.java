@@ -1,7 +1,6 @@
 package model;
 
 import rmi_class.Book;
-import rmi_class.BookServer;
 import rmi_class.Client;
 import rmi_interfaces.ServerInterface;
 
@@ -15,21 +14,24 @@ import java.util.List;
  * Created by bruno on 05/10/16.
  */
 public class Server extends UnicastRemoteObject implements ServerInterface {
-    private List<BookServer> books = null;
+    private List<Book> books = null;
 
     public Server() throws RemoteException {
         super();
-        books = new ArrayList<BookServer>();
+        books = new ArrayList<Book>();
         //for tests
-        books.add(new BookServer("Teste1"));
-        books.add(new BookServer("Teste2"));
-        books.add(new BookServer("Teste3"));
+        books.add(new Book("Teste1"));
+        books.add(new Book("Teste2"));
+        books.add(new Book("Teste3"));
     }
 
-    public List<Book> listBooks() throws RemoteException {
-        List<Book> booksClient = new ArrayList<Book>();
-        booksClient.addAll(books);
-        return booksClient;
+    public List<String> listBooks() throws RemoteException {
+        List<String> booksAvailable = new ArrayList<String>();
+        for (Book b : books)
+            if (b.isAvaiable())
+                booksAvailable.add(b.getName());
+
+        return booksAvailable;
     }
 
     public boolean lend(String clientName, Book book) throws RemoteException {
@@ -55,7 +57,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 
         // empresta o livro se estiver disponivel no acervo
         if (cliAvailable)
-            for (BookServer b : books)
+            for (Book b : books)
                 if (b.equals(book) && b.getStatus().equals(Book.AVAILABLE)){
                     registerBookLend(b, borrow2cli);
                     return true;
@@ -64,7 +66,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         return false;
     }
 
-    private void registerBookLend(BookServer book, Client client){
+    private void registerBookLend(Book book, Client client){
         client.setLoans(1);
         book.setStatus(Book.UNAVAILABLE);
         book.setClient(client);
