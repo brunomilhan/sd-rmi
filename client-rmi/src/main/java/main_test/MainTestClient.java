@@ -15,8 +15,8 @@ public class MainTestClient {
         NamesService namesService = new NamesService();
         serverInterface = namesService.getServerRegistry();
         try {
-            boolean bol = serverInterface.lend("bruno", new Book("Teste1"));
-            bol = serverInterface.lend("bruno", new Book("Teste1"));
+            boolean bol = serverInterface.lend("bruno", "Teste1");
+            bol = serverInterface.lend("bruno", "Teste1");
             for (String s : serverInterface.listBooks()){
                 System.out.println(s);
             }
@@ -24,6 +24,8 @@ public class MainTestClient {
             for (String s : serverInterface.listBooks()){
                 System.out.println(s);
             }
+            boolean test2 = serverInterface.renew("bruno", "Teste1");
+            System.out.println(test2);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

@@ -3,6 +3,7 @@ package rmi_class;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class Book implements Serializable {
     public static final String AVAILABLE = "AVAILABLE";
     public static final String UNAVAILABLE = "UNAVAILABLE";
+    public static final String OVERDUE = "OVERDUE";
     private String name;
     private String status;
 
@@ -23,12 +25,21 @@ public class Book implements Serializable {
     private boolean isRenew;
 
     public Book(String name) {
+        clientReserveList = new ArrayList<Client>();
         this.name = name;
         this.status = AVAILABLE;
     }
 
     public boolean isAvaiable() {
         return status.equals(AVAILABLE);
+    }
+
+    public boolean isOverdue() {
+        return status.equals(OVERDUE);
+    }
+
+    public boolean isEmptyReserveList(){
+        return clientReserveList.isEmpty();
     }
 
     public String getName() {
@@ -52,9 +63,9 @@ public class Book implements Serializable {
         return this.name;
     }
 
-    @Override
-    public boolean equals(Object book) {
-        return this.name.equals(book.toString());
+
+    public boolean equalsName(String bookName) {
+        return this.name.equals(bookName);
     }
 
     public int getAmount() {

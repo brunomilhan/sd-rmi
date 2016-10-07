@@ -11,5 +11,6 @@ import java.util.List;
  */
 public interface ServerInterface extends Remote {
     List<String> listBooks() throws RemoteException;
-    boolean lend(String clientName, Book book) throws RemoteException;
+    boolean lend(String clientName, String bookName) throws RemoteException;
+    boolean renew(String clientName, String bookName) throws RemoteException;
 }
