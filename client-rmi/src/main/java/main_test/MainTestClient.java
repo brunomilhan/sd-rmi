@@ -16,8 +16,7 @@ public class MainTestClient {
         NamesService namesService = new NamesService();
         serverInterface = namesService.getServerRegistry();
         try {
-            for (BookInterface b : serverInterface.listBooks()){
-                Book book = (Book) b;
+            for (Book b : serverInterface.listBooks()){
                 System.out.println( b);
             }
         } catch (RemoteException e) {

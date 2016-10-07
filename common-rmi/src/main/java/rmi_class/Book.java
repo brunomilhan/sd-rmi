@@ -1,12 +1,13 @@
 package rmi_class;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created by bruno on 05/10/16.
  */
-public class Book extends UnicastRemoteObject implements BookInterface {
+public class Book implements Serializable {
     private String name;
 
     public Book(String name) throws RemoteException {
