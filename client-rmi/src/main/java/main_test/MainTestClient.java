@@ -1,10 +1,12 @@
 package main_test;
 
 import config.NamesService;
-import rmi_class.Book;
+import model.Client;
 import rmi_interfaces.ServerInterface;
 
 import java.rmi.RemoteException;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by bruno on 05/10/16.
@@ -26,9 +28,13 @@ public class MainTestClient {
             }
             boolean test2 = serverInterface.renew("bruno", "Teste1");
             System.out.println(test2);
-            boolean testReturn = serverInterface.returnBook("bruno", "Teste1");
-            System.out.println(testReturn);
 
+            Client client = new Client();
+            serverInterface.reserve("bruno", "Teste1", client,
+                    new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1)));
+
+            boolean testReturn = serverInterface.returnBook("bruno", "Teste1");
+            System.out.println("retorno"+testReturn);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,5 @@
 package model;
 
-import rmi_class.Client;
 
 import java.util.Timer;
 import java.util.TimerTask;

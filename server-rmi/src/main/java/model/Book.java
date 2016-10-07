@@ -1,8 +1,6 @@
-package rmi_class;
+package model;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,12 +18,14 @@ public class Book implements Serializable {
     private int amount;
     private Date initDate;
     private Date endDate;
-    private List<Client> clientReserveList;
+    //private List<Client> clientReserveList;
+    private List<Reserve> reserveList;
     private Client client;
     private boolean isRenew;
 
     public Book(String name) {
-        clientReserveList = new ArrayList<Client>();
+        //clientReserveList = new ArrayList<Client>();
+        reserveList = new ArrayList<Reserve>();
         this.name = name;
         this.status = AVAILABLE;
     }
@@ -47,7 +47,11 @@ public class Book implements Serializable {
     }
 
     public boolean isEmptyReserveList(){
-        return clientReserveList.isEmpty();
+        return reserveList.isEmpty();
+    }
+
+    public void addClientInReserveList(Reserve reserve){
+        reserveList.add(reserve);
     }
 
     public String getName() {
@@ -100,12 +104,8 @@ public class Book implements Serializable {
         this.endDate = endDate;
     }
 
-    public List<Client> getClientReserveList() {
-        return clientReserveList;
-    }
-
-    public void setClientReserveList(List<Client> clientReserveList) {
-        this.clientReserveList = clientReserveList;
+    public List<Reserve> getReserveList() {
+        return reserveList;
     }
 
     public Client getClient() {

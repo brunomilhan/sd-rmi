@@ -1,4 +1,6 @@
-package rmi_class;
+package model;
+
+import rmi_interfaces.ClientInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ public class Client {
     private int loans;
     private List<Book> loansBooks;
     private String status;
+
 
     public Client(String name) {
         this.name = name;

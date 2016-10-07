@@ -1,7 +1,6 @@
 package model;
 
-import rmi_class.Book;
-import rmi_class.Client;
+import rmi_interfaces.ClientInterface;
 import rmi_interfaces.ServerInterface;
 
 import java.rmi.RemoteException;
@@ -37,8 +36,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
     }
 
     public boolean lend(String clientName, String bookName) throws RemoteException {
-
-
         // verifica se cliente está disponivel para emprestar
         boolean cliAvailable = false;
         Client borrow2cli = null;
@@ -96,11 +93,37 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         return false;
     }
 
+    public boolean reserve(String clientName, String bookName, ClientInterface clientInterface,
+    Date date2Expire) throws RemoteException {
+        Book book = findBook(bookName);
+        Client client = findClient(clientName);
+        if(book != null)
+            if (client != null){
+                if (!book.isAvaiable()){
+                    Reserve reserve = new Reserve(clientInterface, date2Expire);
+                    book.addClientInReserveList(reserve);
+                }
+            }
+        return false;
+    }
+
     private void registerBookReturn(Client client, Book book) {
         client.removeLoanBook(book);
         client.setLoans(-1);
         book.cleanLoan();
-        // checar lista de interesses de emprestimo
+        checkReserveList(book);
+    }
+
+    private void checkReserveList(Book book){
+        if (!book.isEmptyReserveList()){
+            Reserve reserve = book.getReserveList().get(0);
+            if (reserve.isExpired())
+                try {
+                    reserve.getClientInterface().notifyBookAvailable(book.getName());
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+        }
     }
 
     private void applyFine(Client client) {
