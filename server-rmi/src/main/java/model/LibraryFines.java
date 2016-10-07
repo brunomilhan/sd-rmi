@@ -17,8 +17,8 @@ public class LibraryFines {
 
     public void applyFine(Client client){
         fineTimerTask = new FineTimerTask(client);
-        System.out.println(LibaryRules.TIME_PENALTY);
-        timer.schedule(fineTimerTask, LibaryRules.TIME_PENALTY);
+        System.out.println(LibraryRules.TIME_PENALTY);
+        timer.schedule(fineTimerTask, LibraryRules.TIME_PENALTY);
     }
 
     private class FineTimerTask extends TimerTask{

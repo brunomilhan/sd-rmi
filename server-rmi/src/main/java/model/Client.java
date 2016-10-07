@@ -1,16 +1,14 @@
 package model;
 
-import rmi_interfaces.ClientInterface;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Bruno on 07/10/2016.
  */
-public class Client {
-    public static final String OK = "OK";
-    public static final String UNAVAILABLE = "UNAVAILABLE";
+class Client {
+    static final String OK = "OK";
+    static final String UNAVAILABLE = "UNAVAILABLE";
 
     private String name;
     private int loans;
@@ -18,22 +16,22 @@ public class Client {
     private String status;
 
 
-    public Client(String name) {
+    Client(String name) {
         this.name = name;
         this.status = OK;
         loansBooks = new ArrayList<Book>();
     }
 
-    public boolean isAvailable(){
+    boolean isAvailable() {
         return status.equals(OK);
     }
 
-    public void addLoanBook(Book book){
+    void addLoanBook(Book book) {
         loansBooks.add(book);
-        loans +=1;
+        loans += 1;
     }
 
-    public void removeLoanBook(Book book){
+    void removeLoanBook(Book book) {
         Book b2remove = null;
         for (Book b : loansBooks)
             if (b.getName().equals(book.getName()))
@@ -41,23 +39,23 @@ public class Client {
         loansBooks.remove(b2remove);
     }
 
-    public List<Book> getLoansBooks() {
+    List<Book> getLoansBooks() {
         return loansBooks;
     }
 
-    public void setStatus(String status) {
+    void setStatus(String status) {
         this.status = status;
     }
 
-    public int getLoans() {
+    int getLoans() {
         return loans;
     }
 
-    public void setLoans(int loans) {
+    void setLoans(int loans) {
         this.loans += loans;
     }
 
-    public boolean equalsName(String clientName) {
+    boolean equalsName(String clientName) {
         return this.name.equals(clientName);
     }
 

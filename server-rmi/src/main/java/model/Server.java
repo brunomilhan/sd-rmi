@@ -46,7 +46,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
                 borrow2cli = c;
 
         if (borrow2cli != null) {
-            if (borrow2cli.getLoans() <= LibaryRules.LOANS_LIMIT)
+            if (borrow2cli.getLoans() <= LibraryRules.LOANS_LIMIT)
                 cliAvailable = true;
         } else {
             borrow2cli = new Client(clientName);
@@ -57,7 +57,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         // empresta o livro se estiver disponivel no acervo
         if (cliAvailable)
             for (Book b : books)
-                if (b.equalsName(bookName) && b.getStatus().equals(Book.AVAILABLE)){
+                if (b.equalsName(bookName) && b.getStatus().equals(Book.AVAILABLE)) {
                     registerBookLend(b, borrow2cli);
                     return true;
                 }
@@ -68,11 +68,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
     public boolean renew(String clientName, String bookName) throws RemoteException {
         Book book = findBook(bookName);
         Client client = findClient(clientName);
-        if(book != null)
+        if (book != null)
             if (client != null)
                 if (book.isEmptyReserveList())
                     if (checkClientOverdue(client))
-                        if (client.isAvailable()){
+                        if (client.isAvailable()) {
                             registerBookRenew(book, client);
                             return true;
                         }
@@ -82,7 +82,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
     public boolean returnBook(String clientName, String bookName) throws RemoteException {
         Book book = findBook(bookName);
         Client client = findClient(clientName);
-        if(book != null)
+        if (book != null)
             if (client != null) {
                 long time = book.getEndDate().getTime() - System.currentTimeMillis();
                 if (time < 0)
@@ -94,12 +94,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
     }
 
     public boolean reserve(String clientName, String bookName, ClientInterface clientInterface,
-    Date date2Expire) throws RemoteException {
+                           Date date2Expire) throws RemoteException {
         Book book = findBook(bookName);
         Client client = findClient(clientName);
-        if(book != null)
-            if (client != null){
-                if (!book.isAvaiable()){
+        if (book != null)
+            if (client != null) {
+                if (!book.isAvaiable()) {
                     Reserve reserve = new Reserve(clientInterface, date2Expire);
                     book.addClientInReserveList(reserve);
                     return true;
@@ -115,8 +115,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         checkReserveList(book);
     }
 
-    private void checkReserveList(Book book){
-        if (!book.isEmptyReserveList()){
+    private void checkReserveList(Book book) {
+        if (!book.isEmptyReserveList()) {
             Reserve reserve = book.getReserveList().get(0);
             if (reserve.isExpired())
                 try {
@@ -132,40 +132,35 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         libraryFines.applyFine(client);
     }
 
-    private boolean checkClientOverdue(Client client){
+    private boolean checkClientOverdue(Client client) {
         for (Book b : client.getLoansBooks())
             if (b.isOverdue())
                 return false;
         return true;
     }
 
-    private Client findClient(String name){
+    private Client findClient(String name) {
         for (Client client : clients)
             if (client.equalsName(name))
                 return client;
         return null;
     }
 
-    private Book findBook(String name){
+    private Book findBook(String name) {
         for (Book book : books)
             if (book.equalsName(name))
                 return book;
         return null;
     }
 
-    private void registerBookRenew(Book book, Client client){
+    private void registerBookRenew(Book book, Client client) {
         client.removeLoanBook(book);
-        book.setInitDate(new Date(System.currentTimeMillis()));
-        book.setEndDate(new Date(System.currentTimeMillis() +  LibaryRules.LOAN_PERIOD));
-        book.setRenew(false);
+        book.setEndDate(new Date(System.currentTimeMillis() + LibraryRules.LOAN_PERIOD));
     }
 
-    private void registerBookLend(Book book, Client client){
+    private void registerBookLend(Book book, Client client) {
         client.addLoanBook(book);
         book.setStatus(Book.UNAVAILABLE);
-        book.setClient(client);
-        book.setInitDate(new Date(System.currentTimeMillis()));
-        book.setEndDate(new Date(System.currentTimeMillis() +  LibaryRules.LOAN_PERIOD));
-        book.setRenew(true);
+        book.setEndDate(new Date(System.currentTimeMillis() + LibraryRules.LOAN_PERIOD));
     }
 }

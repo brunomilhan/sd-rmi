@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,65 +7,51 @@ import java.util.List;
 /**
  * Created by bruno on 05/10/16.
  */
-public class Book implements Serializable {
-    public static final String AVAILABLE = "AVAILABLE";
-    public static final String UNAVAILABLE = "UNAVAILABLE";
-    public static final String OVERDUE = "OVERDUE";
+class Book {
+    static final String AVAILABLE = "AVAILABLE";
+    static final String UNAVAILABLE = "UNAVAILABLE";
+    private static final String OVERDUE = "OVERDUE";
     private String name;
     private String status;
-
-    private int amount;
-    private Date initDate;
     private Date endDate;
-    //private List<Client> clientReserveList;
     private List<Reserve> reserveList;
-    private Client client;
-    private boolean isRenew;
 
-    public Book(String name) {
-        //clientReserveList = new ArrayList<Client>();
+    Book(String name) {
         reserveList = new ArrayList<Reserve>();
         this.name = name;
         this.status = AVAILABLE;
     }
 
-    public void cleanLoan(){
+    void cleanLoan() {
         status = AVAILABLE;
-        client = null;
-        setInitDate(null);
         setEndDate(null);
-        setRenew(false);
     }
 
-    public boolean isAvaiable() {
+    boolean isAvaiable() {
         return status.equals(AVAILABLE);
     }
 
-    public boolean isOverdue() {
+    boolean isOverdue() {
         return status.equals(OVERDUE);
     }
 
-    public boolean isEmptyReserveList(){
+    boolean isEmptyReserveList() {
         return reserveList.isEmpty();
     }
 
-    public void addClientInReserveList(Reserve reserve){
+    void addClientInReserveList(Reserve reserve) {
         reserveList.add(reserve);
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getStatus() {
+    String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    void setStatus(String status) {
         this.status = status;
     }
 
@@ -76,51 +61,20 @@ public class Book implements Serializable {
     }
 
 
-    public boolean equalsName(String bookName) {
+    boolean equalsName(String bookName) {
         return this.name.equals(bookName);
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public Date getInitDate() {
-        return initDate;
-    }
-
-    public void setInitDate(Date initDate) {
-        this.initDate = initDate;
-    }
-
-    public Date getEndDate() {
+    Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
-    public List<Reserve> getReserveList() {
+    List<Reserve> getReserveList() {
         return reserveList;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public boolean isRenew() {
-        return isRenew;
-    }
-
-    public void setRenew(boolean renew) {
-        isRenew = renew;
-    }
 }
