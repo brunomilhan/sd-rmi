@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client-gui/client-gui.iml" filepath="$PROJECT_DIR$/.idea/modules/client-gui/client-gui.iml" group="client-gui" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client-gui/client-gui_main.iml" filepath="$PROJECT_DIR$/.idea/modules/client-gui/client-gui_main.iml" group="client-gui" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client-gui/client-gui_test.iml" filepath="$PROJECT_DIR$/.idea/modules/client-gui/client-gui_test.iml" group="client-gui" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi.iml" filepath="$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi.iml" group="client-rmi" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi_main.iml" group="client-rmi" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/client-rmi/client-rmi_test.iml" group="client-rmi" />

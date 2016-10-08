@@ -19,6 +19,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="client-gui_main" target="1.5" />
+      <module name="client-gui_test" target="1.5" />
       <module name="client-rmi_main" target="1.5" />
       <module name="client-rmi_test" target="1.5" />
       <module name="common-rmi_main" target="1.5" />
