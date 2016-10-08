@@ -1,4 +1,6 @@
-package swing_gui;
+package gui_view_swing;
+
+import gui_controller.Controller;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,10 +24,12 @@ public class MainFrame {
     private JList list2;
     private JLabel labelLoans;
 
+    private Controller controller;
+
     public MainFrame() {
         btnList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                controller.list();
             }
         });
 
@@ -52,6 +56,10 @@ public class MainFrame {
 
             }
         });
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
     public JPanel getMainPanel() {
