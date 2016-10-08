@@ -17,6 +17,8 @@ public class Controller {
     private DefaultListModel availableListModel;
     private DefaultListModel loansListModel;
 
+    private String clientName;
+    private boolean isBooksListed;
 
     public Controller(ServerInterface serverInterface) {
         this.serverInterface = serverInterface;
@@ -30,15 +32,22 @@ public class Controller {
     }
 
     public void initGUI() {
+        initName();
         jFrame.setContentPane(mainFrame.getMainPanel());
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         jFrame.pack();
         jFrame.setVisible(true);
     }
 
+    private void initName() {
+        clientName = JOptionPane.showInputDialog("Digite seu nome");
+    }
+
     public void list() {
         try {
             serverInterface.listBooks();
+            mainFrame.enableLoansBtns();
+            isBooksListed = true;
             for (String s : serverInterface.listBooks()) {
                 availableListModel.addElement(s);
             }
@@ -47,5 +56,16 @@ public class Controller {
         }
     }
 
+    public void lend(String bookSelected) {
+        boolean ok = false;
+        if (isBooksListed)
+            try {
+                ok = serverInterface.lend(clientName, bookSelected);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        if (ok)
+            loansListModel.addElement(bookSelected);
+    }
 
 }

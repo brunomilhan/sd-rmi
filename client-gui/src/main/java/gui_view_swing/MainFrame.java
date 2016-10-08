@@ -3,6 +3,8 @@ package gui_view_swing;
 import gui_controller.Controller;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,7 +28,12 @@ public class MainFrame {
 
     private Controller controller;
 
+    private String bookSelected;
+
     public MainFrame() {
+        btnBorrow.setEnabled(false);
+        btnReserve.setEnabled(false);
+
         btnList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 controller.list();
@@ -35,7 +42,7 @@ public class MainFrame {
 
         btnBorrow.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                controller.lend(bookSelected);
             }
         });
 
@@ -56,6 +63,18 @@ public class MainFrame {
 
             }
         });
+
+        listAvailable.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                bookSelected = listAvailable.getSelectedValue().toString();
+                System.out.println("teste " + bookSelected);
+            }
+        });
+    }
+
+    public void enableLoansBtns(){
+        btnBorrow.setEnabled(true);
+        btnReserve.setEnabled(true);
     }
 
     public void setController(Controller controller) {
