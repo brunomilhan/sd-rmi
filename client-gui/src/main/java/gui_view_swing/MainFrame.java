@@ -29,10 +29,13 @@ public class MainFrame {
     private Controller controller;
 
     private String bookSelected;
+    private String bookLoanSelected;
 
     public MainFrame() {
         btnBorrow.setEnabled(false);
         btnReserve.setEnabled(false);
+        btnRenew.setEnabled(false);
+        btnReturn.setEnabled(false);
 
         btnList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -48,7 +51,7 @@ public class MainFrame {
 
         btnRenew.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                controller.renew(bookLoanSelected);
             }
         });
 
@@ -67,7 +70,12 @@ public class MainFrame {
         listAvailable.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 bookSelected = listAvailable.getSelectedValue().toString();
-                System.out.println("teste " + bookSelected);
+            }
+        });
+
+        listLoans.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                bookLoanSelected = listAvailable.getSelectedValue().toString();
             }
         });
     }
@@ -75,6 +83,11 @@ public class MainFrame {
     public void enableLoansBtns(){
         btnBorrow.setEnabled(true);
         btnReserve.setEnabled(true);
+    }
+
+    public void enableRenewReturnBtns(){
+        btnRenew.setEnabled(true);
+        btnReturn.setEnabled(true);
     }
 
     public void setController(Controller controller) {

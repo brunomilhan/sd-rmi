@@ -19,6 +19,7 @@ public class Controller {
 
     private String clientName;
     private boolean isBooksListed;
+    private boolean isBooksLoans;
 
     public Controller(ServerInterface serverInterface) {
         this.serverInterface = serverInterface;
@@ -58,14 +59,45 @@ public class Controller {
 
     public void lend(String bookSelected) {
         boolean ok = false;
-        if (isBooksListed)
-            try {
-                ok = serverInterface.lend(clientName, bookSelected);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        if (ok)
+        if (checkBookIsSelected(bookSelected))
+            if (isBooksListed)
+                try {
+                    ok = serverInterface.lend(clientName, bookSelected);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+        if (ok) {
             loansListModel.addElement(bookSelected);
+            isBooksLoans = true;
+            mainFrame.enableRenewReturnBtns();
+            confirmDialog("Emprestado com sucesso");
+        }
+    }
+
+    public void renew(String bookSelected) {
+        boolean ok = false;
+        if (checkBookIsSelected(bookSelected))
+            if (isBooksLoans)
+                try {
+                    ok = serverInterface.renew(clientName, bookSelected);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+        if (ok) {
+            confirmDialog("Renovado com sucesso");
+        }
+    }
+
+    private boolean checkBookIsSelected(String bookSelected) {
+        if (bookSelected == null) {
+            confirmDialog("Você precisa selecionar o livro antes");
+            return false;
+        }
+        return true;
+    }
+
+    private void confirmDialog(String message) {
+        JOptionPane.showMessageDialog(null, message);
     }
 
 }
