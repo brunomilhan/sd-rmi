@@ -17,11 +17,11 @@ public class MainFrame {
     private JButton btnRenew;
     private JButton btnReturn;
     private JButton btnReserve;
-    private JList list1;
+    private JList listLoans;
     private JPanel mainPanel;
     private JLabel labelMethods;
     private JLabel labelAvailable;
-    private JList list2;
+    private JList listAvailable;
     private JLabel labelLoans;
 
     private Controller controller;
@@ -60,6 +60,14 @@ public class MainFrame {
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    public void setAvailableListModel(DefaultListModel model) {
+        listAvailable.setModel(model);
+    }
+
+    public void setLoansListModel(DefaultListModel model) {
+        listLoans.setModel(model);
     }
 
     public JPanel getMainPanel() {
