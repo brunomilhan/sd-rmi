@@ -25,11 +25,14 @@ public class MainFrame {
     private JLabel labelAvailable;
     private JList listAvailable;
     private JLabel labelLoans;
+    private JList listUnavailable;
+    private JButton btnListUnavailable;
 
     private Controller controller;
 
     private String bookSelected;
     private String bookLoanSelected;
+    private String unavailableBookSelected;
 
     public MainFrame() {
         btnBorrow.setEnabled(false);
@@ -80,6 +83,13 @@ public class MainFrame {
             public void valueChanged(ListSelectionEvent e) {
                 if (!listLoans.isSelectionEmpty())
                     bookLoanSelected = listLoans.getSelectedValue().toString();
+            }
+        });
+
+        listUnavailable.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!listUnavailable.isSelectionEmpty())
+                    unavailableBookSelected = listUnavailable.getSelectedValue().toString();
             }
         });
     }
