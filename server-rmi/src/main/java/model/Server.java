@@ -97,14 +97,16 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
                            Date date2Expire) throws RemoteException {
         Book book = findBook(bookName);
         Client client = findClient(clientName);
-        if (book != null)
-            if (client != null) {
-                if (!book.isAvaiable()) {
-                    Reserve reserve = new Reserve(clientInterface, date2Expire);
-                    book.addClientInReserveList(reserve);
-                    return true;
-                }
+        if (client == null)
+            clients.add(new Client(clientName));
+
+        if (book != null) {
+            if (!book.isAvaiable()) {
+                Reserve reserve = new Reserve(clientInterface, date2Expire);
+                book.addClientInReserveList(reserve);
+                return true;
             }
+        }
         return false;
     }
 
