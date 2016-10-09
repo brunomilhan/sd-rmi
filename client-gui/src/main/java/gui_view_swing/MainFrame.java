@@ -68,7 +68,8 @@ public class MainFrame {
 
         btnReserve.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                listUnavailable.clearSelection();
+                controller.reserve(unavailableBookSelected);
             }
         });
 
@@ -92,16 +93,25 @@ public class MainFrame {
                     unavailableBookSelected = listUnavailable.getSelectedValue().toString();
             }
         });
+
+        btnListUnavailable.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controller.listUnavailableBooks();
+            }
+        });
     }
 
     public void enableLoansBtns() {
         btnBorrow.setEnabled(true);
-        btnReserve.setEnabled(true);
     }
 
     public void enableRenewReturnBtns() {
         btnRenew.setEnabled(true);
         btnReturn.setEnabled(true);
+    }
+
+    public void enableReserveBtn(){
+        btnReserve.setEnabled(true);
     }
 
     public void setController(Controller controller) {
@@ -110,6 +120,10 @@ public class MainFrame {
 
     public void setAvailableListModel(DefaultListModel model) {
         listAvailable.setModel(model);
+    }
+
+    public void setUnavailableListModel(DefaultListModel model){
+        listUnavailable.setModel(model);
     }
 
     public void setLoansListModel(DefaultListModel model) {
