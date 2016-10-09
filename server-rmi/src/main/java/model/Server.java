@@ -108,6 +108,15 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         return false;
     }
 
+    public List<String> listUnavailableBooks() throws RemoteException {
+        List<String> booksUnavailable = new ArrayList<String>();
+        for (Book b : books)
+            if (!b.isAvaiable())
+                booksUnavailable.add(b.getName());
+
+        return booksUnavailable;
+    }
+
     private void registerBookReturn(Client client, Book book) {
         client.removeLoanBook(book);
         client.setLoans(-1);
