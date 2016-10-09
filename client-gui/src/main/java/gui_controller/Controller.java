@@ -42,6 +42,10 @@ public class Controller {
         mainFrame.setLoansListModel(loansListModel);
     }
 
+    public Controller() {
+
+    }
+
     public void initGUI() {
         initName();
         jFrame.setContentPane(mainFrame.getMainPanel());
@@ -130,7 +134,7 @@ public class Controller {
         }
     }
 
-    public void reserve(String bookSelected){
+    public void reserve(String bookSelected) {
         // just for tests
         Date date2Expire = new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1));
 
@@ -146,6 +150,10 @@ public class Controller {
             unavailableListModel.removeElement(bookSelected);
             confirmDialog("Reservado com sucesso");
         }
+    }
+
+    public void notifyReserveAvailable(String bookName) {
+        confirmDialog("O livro: " + bookName + " que você reservou já esta disponivel");
     }
 
     private boolean checkBookIsSelected(String bookSelected) {
