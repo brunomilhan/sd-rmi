@@ -49,6 +49,7 @@ public class Controller {
             serverInterface.listBooks();
             mainFrame.enableLoansBtns();
             isBooksListed = true;
+            availableListModel.clear();
             for (String s : serverInterface.listBooks()) {
                 availableListModel.addElement(s);
             }
@@ -67,11 +68,13 @@ public class Controller {
                     e.printStackTrace();
                 }
         if (ok) {
+            availableListModel.removeElement(bookSelected);
             loansListModel.addElement(bookSelected);
             isBooksLoans = true;
             mainFrame.enableRenewReturnBtns();
             confirmDialog("Emprestado com sucesso");
-        }
+        } else
+            confirmDialog("Faça uma nova consulta, talvez o livro não esteja mais disponivel.");
     }
 
     public void renew(String bookSelected) {
@@ -85,6 +88,21 @@ public class Controller {
                 }
         if (ok) {
             confirmDialog("Renovado com sucesso");
+        }
+    }
+
+    public void returnBook(String bookSelected) {
+        boolean ok = false;
+        if (checkBookIsSelected(bookSelected))
+            if (isBooksLoans)
+                try {
+                    ok = serverInterface.returnBook(clientName, bookSelected);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+        if (ok) {
+            loansListModel.removeElement(bookSelected);
+            confirmDialog("Devolvido com sucesso");
         }
     }
 

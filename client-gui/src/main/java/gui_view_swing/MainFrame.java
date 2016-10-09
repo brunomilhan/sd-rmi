@@ -45,6 +45,7 @@ public class MainFrame {
 
         btnBorrow.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                listAvailable.clearSelection();
                 controller.lend(bookSelected);
             }
         });
@@ -57,7 +58,8 @@ public class MainFrame {
 
         btnReturn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                listLoans.clearSelection();
+                controller.returnBook(bookLoanSelected);
             }
         });
 
@@ -69,23 +71,25 @@ public class MainFrame {
 
         listAvailable.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                bookSelected = listAvailable.getSelectedValue().toString();
+                if (!listAvailable.isSelectionEmpty())
+                    bookSelected = listAvailable.getSelectedValue().toString();
             }
         });
 
         listLoans.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                bookLoanSelected = listAvailable.getSelectedValue().toString();
+                if (!listLoans.isSelectionEmpty())
+                    bookLoanSelected = listLoans.getSelectedValue().toString();
             }
         });
     }
 
-    public void enableLoansBtns(){
+    public void enableLoansBtns() {
         btnBorrow.setEnabled(true);
         btnReserve.setEnabled(true);
     }
 
-    public void enableRenewReturnBtns(){
+    public void enableRenewReturnBtns() {
         btnRenew.setEnabled(true);
         btnReturn.setEnabled(true);
     }
