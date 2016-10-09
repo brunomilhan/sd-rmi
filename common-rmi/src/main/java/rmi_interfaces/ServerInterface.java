@@ -20,4 +20,6 @@ public interface ServerInterface extends Remote {
 
     boolean reserve(String clientName, String bookName, ClientInterface clientInterface,
                     Date date2Expire) throws RemoteException;
+
+    List<String> listUnavailableBooks() throws RemoteException;
 }
