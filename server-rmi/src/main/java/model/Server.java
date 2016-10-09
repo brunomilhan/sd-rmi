@@ -102,7 +102,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 
         if (book != null) {
             if (!book.isAvaiable()) {
-                Reserve reserve = new Reserve(clientInterface, date2Expire);
+                Reserve reserve = new Reserve(clientName, clientInterface, date2Expire);
                 book.addClientInReserveList(reserve);
                 return true;
             }
@@ -132,6 +132,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
             if (reserve.isExpired())
                 try {
                     reserve.getClientInterface().notifyBookAvailable(book.getName());
+                    registerBookLend(book, new Client(reserve.getClientName()));
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }

@@ -10,8 +10,10 @@ import java.util.Date;
 class Reserve {
     private Date date2Expire;
     private ClientInterface clientInterface;
+    private String clientName;
 
-    Reserve(ClientInterface clientInterface, Date date2Expire) {
+    Reserve(String clientName, ClientInterface clientInterface, Date date2Expire) {
+        this.clientName = clientName;
         this.date2Expire = date2Expire;
         this.clientInterface = clientInterface;
     }
@@ -22,5 +24,9 @@ class Reserve {
 
     ClientInterface getClientInterface() {
         return clientInterface;
+    }
+
+    public String getClientName() {
+        return clientName;
     }
 }
