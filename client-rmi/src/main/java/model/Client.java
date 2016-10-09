@@ -1,5 +1,6 @@
 package model;
 
+import gui_controller.Controller;
 import rmi_interfaces.ClientInterface;
 
 import java.rmi.RemoteException;
@@ -15,6 +16,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
     }
 
     public void notifyBookAvailable(String bookName) throws RemoteException {
-        System.out.println("reservou"+bookName);
+        Controller controller = new Controller();
+        controller.notifyReserveAvailable(bookName);
     }
 }
