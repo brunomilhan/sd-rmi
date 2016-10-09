@@ -132,7 +132,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
             if (reserve.isExpired())
                 try {
                     reserve.getClientInterface().notifyBookAvailable(book.getName());
-                    registerBookLend(book, new Client(reserve.getClientName()));
+                    // not lend just notify client
+                    //registerBookLend(book, new Client(reserve.getClientName()));
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
