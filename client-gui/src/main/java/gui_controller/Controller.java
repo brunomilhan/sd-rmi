@@ -102,7 +102,8 @@ public class Controller {
                 }
         if (ok) {
             confirmDialog("Renovado com sucesso");
-        }
+        } else
+            confirmDialog("Não pode, tem livro atrasado.");
     }
 
     public void returnBook(String bookSelected) {
@@ -138,7 +139,7 @@ public class Controller {
         // just for tests
         Date date2Expire;
         if (date != null) {
-            long inMillis = TimeUnit.MINUTES.toMillis(Long.parseLong(date));
+            long inMillis = TimeUnit.SECONDS.toMillis(Long.parseLong(date));
             date2Expire = new Date(System.currentTimeMillis() + inMillis);
         } else
             date2Expire = new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1));

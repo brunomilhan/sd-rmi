@@ -29,6 +29,7 @@ class LibraryFines {
 
         public void run() {
             client.setStatus(Client.OK);
+            System.out.println("Multa  expirou para o cliente: " + client.getName());
         }
     }
 

@@ -11,8 +11,7 @@ import java.util.List;
 
 /**
  * Created by bruno on 05/10/16.
- *  Classe que implementa os métodos da Interface do servidor, que é utilizado pelo RMI.
- *
+ * Classe que implementa os métodos da Interface do servidor, que é utilizado pelo RMI.
  */
 public class Server extends UnicastRemoteObject implements ServerInterface {
 
@@ -33,8 +32,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 
     /**
      * Requisito 1 - Listar os livros disponiveis no acervo
-     * @return lista dos livros disponiveis
      *
+     * @return lista dos livros disponiveis
      */
     public List<String> listBooks() throws RemoteException {
         List<String> booksAvailable = new ArrayList<String>();
@@ -47,12 +46,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 
     /**
      * Requisito 2 - Emprestar livro
-     *  O livro apenas será emprestado se o usuário estiver dentro do limite de livros emprestados
-     *  e o livro estiver disponivel no acervo.
-     * @see LibraryRules
+     * O livro apenas será emprestado se o usuário estiver dentro do limite de livros emprestados
+     * e o livro estiver disponivel no acervo.
      *
-     * O nome do cliente é adicionado na lista de clientes do servidor apenas para controle.
      * @return boolen sinalizando o resutado da operação.
+     * @see LibraryRules
+     * <p>
+     * O nome do cliente é adicionado na lista de clientes do servidor apenas para controle.
      */
     public synchronized boolean lend(String clientName, String bookName) throws RemoteException {
         // verifica se cliente está disponivel para emprestar
@@ -65,8 +65,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
                 borrow2cli = c;
 
         if (borrow2cli != null) {
-            if (borrow2cli.getLoans() <= LibraryRules.LOANS_LIMIT)
+            if (borrow2cli.getLoans() <= LibraryRules.LOANS_LIMIT && borrow2cli.isAvailable())
                 cliAvailable = true;
+
         } else {
             borrow2cli = new Client(clientName);
             clients.add(borrow2cli);
@@ -88,13 +89,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
      * Requisito 3 - Renovar livro
      * É realizado as 3 validações descritas no requisito.
      */
-    public boolean renew(String clientName, String bookName) throws RemoteException {
+    public synchronized boolean renew(String clientName, String bookName) throws RemoteException {
         Book book = findBook(bookName);
         Client client = findClient(clientName);
         if (book != null)
             if (client != null)
                 if (book.isEmptyReserveList())
-                    if (checkClientOverdue(client))
+                    if (!checkClientOverdue(client))
                         if (client.isAvailable()) {
                             registerBookRenew(book, client);
                             return true;
@@ -126,14 +127,14 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 
     /**
      * Requisito 5 - Reserva
-     *  Apenas é reservado os livros que estão indisponiveis.
-     *  É criado um objeto reserva contendo as informações necessárias para realizar o callback,
-     *  e esse objeto é adicionado em uma lista.
+     * Apenas é reservado os livros que estão indisponiveis.
+     * É criado um objeto reserva contendo as informações necessárias para realizar o callback,
+     * e esse objeto é adicionado em uma lista.
      *
-     *  @see Reserve
      * @param clientInterface instância da interface do cliente para posteriormente notifica-lo.
+     * @see Reserve
      */
-    public boolean reserve(String clientName, String bookName, ClientInterface clientInterface,
+    public synchronized boolean reserve(String clientName, String bookName, ClientInterface clientInterface,
                            Date date2Expire) throws RemoteException {
         Book book = findBook(bookName);
         Client client = findClient(clientName);
@@ -191,14 +192,32 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
     private void checkReserveList(Book book) {
         if (!book.isEmptyReserveList()) {
             Reserve reserve = book.getReserveList().get(0);
-            if (reserve.isExpired())
-                try {
-                    reserve.getClientInterface().notifyBookAvailable(book.getName());
-                    // not lend just notify client
-                    //registerBookLend(book, new Client(reserve.getClientName()));
-                } catch (RemoteException e) {
-                    e.printStackTrace();
+            if (reserve.isExpired()) {
+                class NotifyAsync implements Runnable {
+                    private Reserve reserve1;
+                    private Book book1;
+
+                    private NotifyAsync(Reserve reserve1, Book book1) {
+                        this.reserve1 = reserve1;
+                        this.book1 = book1;
+                    }
+
+                    public void run() {
+                        try {
+                            System.out.println("livro disponivel notificado.");
+                            reserve1.getClientInterface().notifyBookAvailable(book1.getName());
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
+                Thread thread = new Thread(new NotifyAsync(reserve, book));
+                thread.start();
+                //reserve.getClientInterface().notifyBookAvailable(book.getName());
+                // not lend just notify client
+                //registerBookLend(book, new Client(reserve.getClientName()));
+            } else
+                System.out.println("livro disponivel mas expirou o interesse, cliente: " + reserve.getClientName() );
         }
     }
 
@@ -209,13 +228,16 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
     private void applyFine(Client client) {
         client.setStatus(Client.UNAVAILABLE);
         libraryFines.applyFine(client);
+        System.out.println("Multa aplicada para o cliente: " + client.getName());
     }
 
     private boolean checkClientOverdue(Client client) {
         for (Book b : client.getLoansBooks())
-            if (b.isOverdue())
-                return false;
-        return true;
+            if (b.isOverdue()) {
+                System.out.println("Cliente com livro atrasado: " + client.getName());
+                return true;
+            }
+        return false;
     }
 
     /**
