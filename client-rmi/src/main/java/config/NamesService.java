@@ -9,6 +9,7 @@ import java.rmi.registry.Registry;
 
 /**
  * Created by bruno on 05/10/16.
+ * Usado apenas para retornar a instancia do servidor
  */
 public class NamesService {
     private Registry registry;

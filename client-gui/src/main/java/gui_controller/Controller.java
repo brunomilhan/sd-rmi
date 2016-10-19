@@ -10,6 +10,10 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Essa classe é equivalente a um controller em um modelo mvc,
+ * ela será responsavel por dispobilizar para a view as funções do servidor.
+ * Esses métodos serão chamados pelos listeners dos componentes da view (gui swing)
+ *
  * Created by Bruno on 08/10/2016.
  */
 public class Controller {

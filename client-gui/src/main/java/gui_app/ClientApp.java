@@ -9,6 +9,7 @@ import rmi_interfaces.ServerInterface;
 import java.rmi.RemoteException;
 
 /**
+ * Encapsula a lógica que será executada no método Main.
  * Created by Bruno on 08/10/2016.
  */
 public class ClientApp {
@@ -18,6 +19,13 @@ public class ClientApp {
     private NamesService namesService;
     private Controller controller;
 
+    /**
+     * O construtor primeiro irá pegar a instancia do servidor.
+     * Logo em seguida vai implementar a interface do cliente.
+     * E por ultimo vai enviar para o controller essas duas instancias.
+     * O Controller é o responsavel por invocar os métodos disponiveis na view (swing gui).
+     * @see Controller
+     */
     public ClientApp() {
         getInterface();
         initClientInterface();
