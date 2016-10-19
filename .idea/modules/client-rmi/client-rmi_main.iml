@@ -10,5 +10,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="common-rmi_main" />
+    <orderEntry type="module" module-name="client-gui_main" />
   </component>
 </module>

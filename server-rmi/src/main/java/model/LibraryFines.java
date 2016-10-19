@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
+ * Responsavel por criar um timertask que controlará as multas
  * Created by Bruno on 07/10/2016.
  */
 class LibraryFines {
@@ -28,6 +29,7 @@ class LibraryFines {
 
         public void run() {
             client.setStatus(Client.OK);
+            System.out.println("Multa  expirou para o cliente: " + client.getName());
         }
     }
 

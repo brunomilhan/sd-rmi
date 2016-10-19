@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Representação de um cliente. Apenas utilizado no Servidor.
  * Created by Bruno on 07/10/2016.
  */
 class Client {
@@ -40,6 +41,7 @@ class Client {
     }
 
     List<Book> getLoansBooks() {
+        updateBookStatus();
         return loansBooks;
     }
 
@@ -57,6 +59,16 @@ class Client {
 
     boolean equalsName(String clientName) {
         return this.name.equals(clientName);
+    }
+
+    private void updateBookStatus(){
+        for (Book b : loansBooks)
+            if (b.getEndDate().getTime() < System.currentTimeMillis())
+                b.setStatus(Book.OVERDUE);
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
