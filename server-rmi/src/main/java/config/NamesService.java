@@ -8,6 +8,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
+ * Utilizado para registrar a interface do servidor...
  * Created by bruno on 28/09/16.
  */
 public class NamesService {

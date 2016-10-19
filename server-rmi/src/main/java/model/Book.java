@@ -5,12 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Representação de um livro, apenas utilizado no servidor.
  * Created by bruno on 05/10/16.
  */
 class Book {
     static final String AVAILABLE = "AVAILABLE";
     static final String UNAVAILABLE = "UNAVAILABLE";
-    private static final String OVERDUE = "OVERDUE";
+    static final String OVERDUE = "OVERDUE";
     private String name;
     private String status;
     private Date endDate;

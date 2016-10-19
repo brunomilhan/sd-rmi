@@ -6,6 +6,7 @@ import model.Server;
 import java.rmi.RemoteException;
 
 /**
+ * Sobe o servidor
  * Created by bruno on 05/10/16.
  */
 public class MainTest {

@@ -5,6 +5,7 @@ import rmi_interfaces.ClientInterface;
 import java.util.Date;
 
 /**
+ * Representa as reservas (Registros de interesse).
  * Created by Bruno on 07/10/2016.
  */
 class Reserve {
