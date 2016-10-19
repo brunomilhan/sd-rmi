@@ -134,9 +134,14 @@ public class Controller {
         }
     }
 
-    public void reserve(String bookSelected) {
+    public void reserve(String bookSelected, String date) {
         // just for tests
-        Date date2Expire = new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1));
+        Date date2Expire;
+        if (date != null) {
+            long inMillis = TimeUnit.MINUTES.toMillis(Long.parseLong(date));
+            date2Expire = new Date(System.currentTimeMillis() + inMillis);
+        } else
+            date2Expire = new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1));
 
         boolean ok = false;
         if (checkBookIsSelected(bookSelected))

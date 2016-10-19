@@ -27,6 +27,7 @@ public class MainFrame {
     private JLabel labelLoans;
     private JList listUnavailable;
     private JButton btnListUnavailable;
+    private JTextField dateField;
 
     private Controller controller;
 
@@ -69,7 +70,7 @@ public class MainFrame {
         btnReserve.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 listUnavailable.clearSelection();
-                controller.reserve(unavailableBookSelected);
+                controller.reserve(unavailableBookSelected, dateField.getText());
             }
         });
 
